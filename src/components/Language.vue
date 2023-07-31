@@ -18,6 +18,7 @@
   <style>
   .container {
     display: flex;
+    background-color: yellow;    
   }
   
   .column {
