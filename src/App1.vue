@@ -2,6 +2,7 @@
 import Header from './components/Header.vue'
 import UploadFile from './components/UploadFile.vue'
 import Language from './components/Language.Vue'
+import basic from './components/basic.vue'
 </script>
 
 <template>
@@ -19,10 +20,13 @@ import Language from './components/Language.Vue'
             <div>
                 <Language />
             </div>
+            <div>
+                <basic />
+            </div>
         </main>
         <hr />
         <footer>
-            2023 Engage Trainning Program for University Students With Disability
+            @2023 Engage Trainning Program for University Students With Disability
         </footer>
     </div>
 </template>

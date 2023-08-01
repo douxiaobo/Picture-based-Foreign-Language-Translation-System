@@ -41,6 +41,6 @@
   .box {
     border: 1px solid black;
     padding: 10px;
-    height:500px;
+    height:400px;
   }
   </style>

@@ -9,21 +9,22 @@
             Picture-based Foreign Language Translation System
         </h1>
         <p class="author">
-            Author:Xiaobo Dou & Yitu Ma
+            Author:Xiaobo Dou & Yitu Ma<br>
+            Xiaobo Dou's Mentor: Xing Fan<br>
+            Yitu Ma's Mentor: Rachel Wang
         </p>
     </div>
 </template>
 
 <style scoped>
 .title {
-    font-size: large;
+    font-size: 50px;
     background-color: aqua;
     height: 60%;
-    padding: 20px;
-    line-height: 1.5;
+    padding: 10px;
+    line-height: 1;
     text-align: center;
     color: blue;
-    font-size: 50px;
 }
 
 .author{
