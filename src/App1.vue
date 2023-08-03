@@ -2,11 +2,10 @@
 import Header from './components/Header.vue'
 import UploadFile from './components/UploadFile.vue'
 import Language from './components/Language.Vue'
-import basic from './components/basic.vue'
 </script>
 
 <template>
-    <div>
+    <div class="common-layout">
         <div>
             <Header />
         </div>
@@ -19,9 +18,6 @@ import basic from './components/basic.vue'
             <hr />
             <div>
                 <Language />
-            </div>
-            <div>
-                <basic />
             </div>
         </main>
         <hr />

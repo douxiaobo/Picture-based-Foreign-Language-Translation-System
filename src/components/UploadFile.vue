@@ -2,6 +2,11 @@
     <div>
       <input type="file" ref="fileInput" @change="handleFileUpload" />
       <button @click="uploadFile">Upload</button>
+
+      <el-button type="primary">
+        Upload<el-icon class="el-icon--right"><UpLoad /></el-icon>
+      </el-button>
+      
       <p>Uploaded file: {{ uploadedFile }}</p>
     </div>
   </template>
@@ -37,4 +42,5 @@
       },
     },
   };
+  import {Upload} from '@element-plus/icons-vue'
   </script>

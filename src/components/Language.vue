@@ -1,13 +1,13 @@
 <template>
     <div class="container">
       <div class="column left">
-        <h2>Original Language</h2>
+        <h2 class="originallanguage">Original Language</h2>
         <div class="box">
           <!-- 在这里添加原始语言的文本 -->
         </div>
       </div>
       <div class="column right">
-        <h2>Mother Language</h2>
+        <h2 class="originallanguage">Mother Language</h2>
         <div class="box">
           <!-- 在这里添加母语的文本 -->
         </div>
@@ -42,5 +42,9 @@
     border: 1px solid black;
     padding: 10px;
     height:400px;
+  }
+
+  .originallanguage{
+    color: blue;
   }
   </style>

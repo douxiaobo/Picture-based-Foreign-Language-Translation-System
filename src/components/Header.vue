@@ -12,7 +12,7 @@
             Author:Xiaobo Dou & Yitu Ma<br>
             Xiaobo Dou's Mentor: Xing Fan<br>
             Yitu Ma's Mentor: Rachel Wang
-        </p>
+        </p>        
     </div>
 </template>
 
