@@ -7,10 +7,13 @@ import { createApp } from 'vue'
 
 import App1 from './App1.vue'
 import ElementPlus from 'element-plus'
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 import 'element-plus/dist/index.css'
 
-createApp(App1).mount('#app1')
-
-const app=createApp(App1)
+const app = createApp(App1)
+for (var [name, comp] of Object.entries(ElementPlusIconsVue)) {
+    console.log(name, comp);
+    app.component(name, comp);
+  }
 app.use(ElementPlus)
 app.mount('#app1')

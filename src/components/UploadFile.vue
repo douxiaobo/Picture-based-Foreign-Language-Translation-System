@@ -3,10 +3,13 @@
       <input type="file" ref="fileInput" @change="handleFileUpload" />
       <button @click="uploadFile">Upload</button>
 
-      <el-button type="primary" icon="el-icon-upload">Upload</el-button>
+      <el-button type="primary" icon="Upload">Upload</el-button>
 
       <el-button type="primary">
-        Upload<i class="el-icon-upload el-icon-right"></i>
+        <el-icon>
+          <upload />
+        </el-icon>
+        <span>Upload</span>
       </el-button>
       
       <p>Uploaded file: {{ uploadedFile }}</p>
