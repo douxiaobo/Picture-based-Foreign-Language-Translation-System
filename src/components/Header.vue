@@ -9,10 +9,31 @@
             Picture-based Foreign Language Translation System
         </h1>
         <p class="author">
-            Author:Xiaobo Dou & Yitu Ma<br>
+            Author: Xiaobo Dou & Yitu Ma<br>
             Xiaobo Dou's Mentor: Xing Fan<br>
             Yitu Ma's Mentor: Rachel Wang
-        </p>        
+        </p>       
+        <el-descriptions class="el-descriptions-large">
+            <el-descriptions-item label="Author:" class="el-descriptions-small">Xiaobo Dou & Yitu Ma</el-descriptions-item>    
+        </el-descriptions>
+        <el-descriptions>
+            <el-descriptions-item label="Xiaobo Dou's Mentor:" class="el-descriptions-small">Xing Fan</el-descriptions-item>
+        </el-descriptions> 
+        <el-descriptions>
+            <el-descriptions-item label="Yitu Ma's Mentor:" class="el-descriptions-small">Rachel Wang</el-descriptions-item>
+        </el-descriptions>
+        <el-row :gutter="20">
+            <el-col :span="10" laber-align="right">Author:</el-col>
+            <el-col :span="10" laber-align="left">Xiaobo Dou & Yitu Ma</el-col>
+        </el-row>
+        <el-row :gutter="20">
+            <el-col :span="10">Xiaobo Dou's Mentor:</el-col>
+            <el-col :span="10">Xing Fan</el-col>
+        </el-row>
+        <el-row :gutter="20">
+            <el-col :span="10">Yitu Ma's Mentor:</el-col>
+            <el-col :span="10">Rachel Wang</el-col>
+        </el-row>
     </div>
 </template>
 
@@ -32,6 +53,14 @@
     font-size: 15px;
     text-align: right;
     font-weight: bolder;
+}
+.eldescriptions-large{
+    vertical-align: auto;
+}
+
+.el-descriptions-small{
+    label-align: "right";
+    text-align: "left";
 }
 </style>
 
