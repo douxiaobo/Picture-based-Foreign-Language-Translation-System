@@ -79,16 +79,16 @@
         </div> -->
         <div>
   <el-row :gutter="6" class="small-text" justify="end">
-    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1" class="align-right">Author:</el-col>
-    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">Xiaobo Dou & Yitu Ma</el-col>
+    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="3" class="align-right">Author:</el-col>
+    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="3">Xiaobo Dou & Yitu Ma</el-col>
   </el-row>
   <el-row :gutter="6" class="small-text" justify="end">
-    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1" class="align-right">Xiaobo Dou's Mentor:</el-col>
-    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">Xing Fan</el-col>
+    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="3" class="align-right">Xiaobo Dou's Mentor:</el-col>
+    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="3">Xing Fan</el-col>
   </el-row>
   <el-row :gutter="6" class="small-text" justify="end">
-    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1" class="align-right">Yitu Ma's Mentor:</el-col>
-    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="1">Rachel Wang</el-col>
+    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="3" class="align-right">Yitu Ma's Mentor:</el-col>
+    <el-col :xs="8" :sm="6" :md="4" :lg="3" :xl="3">Rachel Wang</el-col>
   </el-row>
 </div>
 
