@@ -127,6 +127,7 @@
   }
   .small-text {
     font-size: 1.0em;
+    width: "120";
   }
   .align-right:before {
     content: "";
