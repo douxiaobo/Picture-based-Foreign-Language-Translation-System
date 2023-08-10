@@ -8,12 +8,15 @@
       </div>
       <div class="column right">
         <h2 class="originallanguage">Mother Language</h2>
+        <!-- <div><ChooseLanguage /></div> -->
         <div class="box">
           <!-- 在这里添加母语的文本 -->
         </div>
       </div>
     </div>
   </template>
+
+  <script setup>import ChooseLanguage from './ChooseLanguage.vue'</script>
   
   <style>
   .container {
@@ -41,7 +44,7 @@
   .box {
     border: 1px solid black;
     padding: 10px;
-    height:400px;
+    height:350px;
   }
 
   .originallanguage{
