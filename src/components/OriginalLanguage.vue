@@ -1,6 +1,7 @@
 <template>
+    <h3>Please choose Original language：</h3>
     <el-dropdown size="large" split-button type="primary">
-        Mother Language
+        Original Language
         <template #dropdown>
             <el-dropdown-menu>
                 <el-dropdown-item>Chinese</el-dropdown-item>

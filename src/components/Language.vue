@@ -16,12 +16,12 @@
     </div>
   </template>
 
-  <script setup>import ChooseLanguage from './ChooseLanguage.vue'</script>
+ <!--  <script setup>import ChooseLanguage from './ChooseLanguage.vue'</script> -->
   
   <style>
   .container {
     display: flex;
-    background-color: yellowgreen;    
+    {/* background-color: yellowgreen;  */}   
   }
   
   .column {
@@ -42,9 +42,11 @@
   }
   
   .box {
-    border: 1px solid black;
+    border: 2px solid lightgreen;
     padding: 10px;
     height:350px;
+    background-color: #f4f4f5;
+    border-radius: 20px;
   }
 
   .originallanguage{

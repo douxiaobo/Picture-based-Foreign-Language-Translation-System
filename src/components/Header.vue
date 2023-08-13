@@ -150,20 +150,22 @@
 
 .title {
     font-size: 50px;
-    background-color: aqua;
+    /* background-color: aqua; */
     height: 60%;
     padding: 10px;
     line-height: 1;
     text-align: center;
     color: blue;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .author{
-  background-color: aqua;
+  /* background-color: aqua; */
     color: black;
     font-size: 15px;
     /* text-align: right; */
     font-weight: bolder;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 .eldescriptions-large{
     vertical-align: auto;

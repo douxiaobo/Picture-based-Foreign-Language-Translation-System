@@ -2,7 +2,8 @@
 import Header from './components/Header.vue'
 import UploadFile from './components/UploadFile.vue'
 import Language from './components/Language.Vue'
-import ChooseLanguage from './components/ChooseLanguage.vue'
+import MotherLanguage from './components/MotherLanguage.vue'
+import Tabs from './components/Tabs.vue'
 </script>
 
 <template>
@@ -16,19 +17,21 @@ import ChooseLanguage from './components/ChooseLanguage.vue'
             <div>
                 <UploadFile />
             </div> -->
-            
-            <div class="container">
+            <div>
+                <Tabs />
+            </div>
+            <!-- <div class="container">
                 
                 <div class="left-column">
-                    <h2>UpLoad File:</h2>
+                    
                     <UploadFile />
                 </div>
                 
                 <div class="right-column">
-                    <h2>Choose your monther language：</h2>
-                    <ChooseLanguage />
+                    
+                    <MotherLanguage />
                 </div>
-            </div>
+            </div> -->
             <hr />
             <div>
                 <Language />
@@ -43,6 +46,13 @@ import ChooseLanguage from './components/ChooseLanguage.vue'
 
 <style scoped>
 
+.common-layout{
+    /* background-color: lightskyblue; */
+    background-image: url(./assets/2.jpg);
+    background-size: cover;
+    background-position: center;
+}
+
 /*
 header {
     background-color:aqua;
@@ -55,7 +65,7 @@ header {
 
 .container {
     display: flex;
-    background-color: yellowgreen;  
+    /* background-color: yellowgreen;  */ 
     /* justify-content: space-between;  */ 
     flex-direction: row;
   }
@@ -80,7 +90,7 @@ header {
   } */
 
 footer{
-    background-color: burlywood;
+    /* background-color: burlywood; */
     text-align: right;
 }
 </style>

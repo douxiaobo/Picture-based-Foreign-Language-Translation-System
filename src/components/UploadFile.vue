@@ -1,18 +1,22 @@
 <template>
     <div>
+      UpLoad File:<br>
       <input type="file" ref="fileInput" @change="handleFileUpload" />
-      <button @click="uploadFile">Upload</button>
+      <!-- <button @click="uploadFile">Upload</button> -->
 
-      <el-button type="primary" icon="Upload">Upload</el-button>
+      <el-button type="primary" icon="Upload" @click="uploadFile">Upload</el-button>
 
-      <el-button type="primary">
+      <!-- <el-button type="primary">
         <el-icon>
           <upload />
         </el-icon>
         <span>Upload</span>
-      </el-button>
+      </el-button> -->
       
-      <p>Uploaded file: {{ uploadedFile }}</p>
+      <!-- <p>Uploaded file: {{ uploadedFile }}</p> -->
+      <br>
+      <el-tag class="m1-2" type="info">Uploaded file:</el-tag>
+      <el-tag class="m1-2" type="danger"> {{ uploadedFile }}</el-tag>
     </div>
   </template>
   
