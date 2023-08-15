@@ -6,7 +6,7 @@
       <el-radio-button label="left">left</el-radio-button>
     </el-radio-group> -->
   
-    <el-tabs :tab-position="tabPosition" style="height: 200px" class="demo-tabs">
+    <el-tabs :tab-position="tabPosition" style="height: 300px" class="demo-tabs">
         <el-tab-pane label="UploadFile"><UploadFile /></el-tab-pane>
         <el-tab-pane label="Origin Language"><OriginalLanguage/></el-tab-pane>
         <el-tab-pane label="Target Language"><MotherLanguage/></el-tab-pane>

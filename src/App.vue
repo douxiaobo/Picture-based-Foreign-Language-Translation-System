@@ -4,22 +4,24 @@ import UploadFile from './components/UploadFile.vue'
 import Language from './components/Language.Vue'
 import MotherLanguage from './components/MotherLanguage.vue'
 import Tabs from './components/Tabs.vue'
+import Main from './components/Main.vue'
 </script>
 
 <template>
-    <div class="common-layout">
-        <div>
+    <div>
+        <div class="header">
             <Header />
         </div>
         <hr />
-        <main>
+        <main class="common-layout">
+            <Main />
             <!-- <h2>Upload File:</h2>
             <div>
                 <UploadFile />
             </div> -->
-            <div>
+            <!-- <div>
                 <Tabs />
-            </div>
+            </div> -->
             <!-- <div class="container">
                 
                 <div class="left-column">
@@ -32,10 +34,10 @@ import Tabs from './components/Tabs.vue'
                     <MotherLanguage />
                 </div>
             </div> -->
-            <hr />
+            <!-- <hr />
             <div>
                 <Language />
-            </div>
+            </div> -->
         </main>
         <hr />
         <footer>
@@ -47,20 +49,16 @@ import Tabs from './components/Tabs.vue'
 <style scoped>
 
 .common-layout{
-    /* background-color: lightskyblue; */
-    background-image: url(./assets/2.jpg);
+    background-color: #f4f4f5;;
+    /* background-image: url(./assets/2.jpg); */
     background-size: cover;
     background-position: center;
 }
 
-/*
+
 header {
-    background-color:aqua;
-    height:60px;
-    padding:20px;
-    text-align: center;
-    font-size: 20px;
-}*/
+    background-color: white;
+}
 
 
 .container {
