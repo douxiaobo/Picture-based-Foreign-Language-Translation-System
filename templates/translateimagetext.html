@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>TranslateImageText</title>
+</head>
+<body>
+    <h1>图片翻译</h1>
+    <form action="/api/translateimagetext" method="post" enctype="multipart/form-data">
+        <input type="file" name="image">
+
+        
+        <p>origin_language</p>
+        <input type="text" name="origin_language" placeholder="默认为英文">
+        <p>target_language</p>
+        <input type="text" name="target_language">
+
+
+
+        <br><br>
+        <input type="submit" value="Upload">
+    </form>
+    <!-- <form method="post">
+        <p>origin_language</p>
+        <input type="text" name="origin_language">
+        <p>target_language</p>
+        <input type="text" name="target_language">
+        
+    </form> -->
+    <br><br>
+    {% if result %}
+        <h2>OCR Result:</h2>
+        <p>{{ text }}</p>
+        <h2>Trans Result:</h2>
+        <p>{{ result }}</p>
+    {% endif %}
+</body>
+</html>
