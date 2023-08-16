@@ -4,7 +4,10 @@ from PIL import Image
 import pytesseract
 from googletrans import Translator
 from flask_cors import CORS
+from gevent import monkey
+from gevent.pywsgi import WSGIServer
 
+monkey.patch_all(ssl=False)
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
@@ -45,7 +48,22 @@ def upload():
     # return render_template('translateimagetext.html', text = origin_text, result=target_text.text)
     return jsonify({'origin_language':origin_language, 'origin_text':origin_text, 'target_language':target_language, 'target_text':target_text.text})
 
+def run(MULTI_PROCESS):
+    if MULTI_PROCESS == False:
+        WSGIServer(('0.0.0.0', int(PORT)), app).serve_forever()
+    else:
+        mulserver = WSGIServer(('0.0.0.0', int(PORT)), app)
+        mulserver.start()
+
+        def server_forever():
+            mulserver.start_accepting()
+            mulserver._stop_event.wait()
+
+        for i in range(cpu_count()):
+            p = Process(target=server_forever)
+            p.start()
 
 if __name__ == '__main__':
-    app.run(port=int(PORT), debug=True)
+    # app.run(port=int(PORT), debug=True)
+    run(False)
 
