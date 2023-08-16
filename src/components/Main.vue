@@ -17,13 +17,13 @@
             </div> -->
         </div>
         <div class="column right">
-            <el-dropdown class="buttonleft">
+            <!-- <el-dropdown class="buttonleft">
                 <el-button type="primary" round>
                     Original Language<el-icon class="el-icon--right"><arrow-down /></el-icon>
                 </el-button>
                 <template #dropdown>
                     <el-dropdown-menu>
-                        <el-dropdown-item v-for="language in languages">{{ language }}</el-dropdown-item>
+                        <el-dropdown-item v-for="language in languages">{{ language }}</el-dropdown-item> -->
                         <!-- <el-dropdown-item>Chinese</el-dropdown-item>
                         <el-dropdown-item>English</el-dropdown-item>
                         <el-dropdown-item>Spanish</el-dropdown-item>
@@ -33,11 +33,15 @@
                         <el-dropdown-item>German</el-dropdown-item>
                         <el-dropdown-item>Japanese</el-dropdown-item>
                         <el-dropdown-item>Korean</el-dropdown-item> -->
-                    </el-dropdown-menu>
+                    <!-- </el-dropdown-menu>
                 </template>
-            </el-dropdown>
+            </el-dropdown> -->
 
-            <el-button type="primary" round class="buttoncenter">Translate</el-button>
+            <el-select v-model="originLanguage" class="m-2" placeholder="Select" size="large">
+                <el-option v-for="item in originLanguageDict" :key="item" :label="item" :value="item" />
+            </el-select>
+
+            <el-button type="primary" @click="demoHandler" round class="buttoncenter">Translate</el-button>
 
             <el-dropdown class="buttonright">
                 <el-button type="primary" round>
@@ -64,37 +68,39 @@
 </template>
 
 <style>
-.container{
-    display:flex;
+.container {
+    display: flex;
 }
-.column{
-    width:50%;
-    padding:10px;
+
+.column {
+    width: 50%;
+    padding: 10px;
 }
-.left{
-    order:1;
+
+.left {
+    order: 1;
 }
-.right{
-    order:2;
+
+.right {
+    order: 2;
 }
+
 .box {
     border: 2px solid lightgreen;
     padding: 10px;
-    height:500px;
+    height: 500px;
     background-color: white;
     border-radius: 20px;
 }
-.buttonleft{
 
-}
-.buttoncenter{
+.buttonleft {}
 
-}
-.buttonright{
+.buttoncenter {}
+
+.buttonright {
     justify-content: right;
     align-items: right;
 }
-
 </style>
 
 <script lang="ts" setup>
@@ -104,27 +110,42 @@ import { Delete, Download, Plus, ZoomIn } from '@element-plus/icons-vue'
 import type { UploadFile } from 'element-plus'
 
 import UploadPicture from './UploadPicture.vue'
+import axios from 'axios'
+import OriginalLanguage from './OriginalLanguage.vue'
+
+const originLanguage = ref('English')
+const originLanguageDict = ['Chinese', 'English', 'Spanish', 'French', 'Russian', 'Arabic', 'German', 'Japanese', 'Korean']
+const demoHandler = () => {
+    const path = 'http://127.0.0.1:8010/api/translateimagetext'
+      axios.get(path)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+}
 
 const dialogImageUrl = ref('')
 const dialogVisible = ref(false)
 const disabled = ref(false)
 
 const handleRemove = (file: UploadFile) => {
-  console.log(file)
+    console.log(file)
 }
 
 const handlePictureCardPreview = (file: UploadFile) => {
-  dialogImageUrl.value = file.url!
-  dialogVisible.value = true
+    dialogImageUrl.value = file.url!
+    dialogVisible.value = true
 }
 
 const handleDownload = (file: UploadFile) => {
-  console.log(file)
+    console.log(file)
 }
 
 
 
-const languages = ref(['Chinese','English','Spanish','French','Russian','Arabic','German','Japanese','Korean'])
+const languages = ref(['Chinese', 'English', 'Spanish', 'French', 'Russian', 'Arabic', 'German', 'Japanese', 'Korean'])
 
 
 </script>

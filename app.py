@@ -3,16 +3,18 @@ import pytesseract
 from PIL import Image
 import pytesseract
 from googletrans import Translator
+from flask_cors import CORS
 
 
 app = Flask(__name__)
-
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
+PORT = 8010
 
 @app.route('/api/translateimagetext', methods=['GET', 'POST'])
 def upload():
     if request.method == 'GET':
-        return render_template('translateimagetext.html')
-        # return jsonify({'text':0, 'result':0})  
+        # return render_template('translateimagetext.html')
+        return jsonify({'text':0, 'result':0})  
     
     image = request.files.get('image')
     image.save('image.png')
@@ -45,5 +47,5 @@ def upload():
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=int(PORT), debug=True)
 
