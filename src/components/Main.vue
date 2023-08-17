@@ -1,67 +1,23 @@
 <template>
     <div class="container">
         <div class="column left">
-            <UploadPicture />
-            <!-- <el-button type="primary" round>
-                Upload<el-icon justify="el-icon--right"><Upload /></el-icon>
-
-            </el-button>
-            <el-button type="primary" round>
-                Delete<el-icon justify="el-icon--right"><Delete /></el-icon>
-            </el-button>
-            <div class="box">
-                           
-                     
-
-                
-            </div> -->
+            <el-button type="primary" round v-if="imageUrl" @click="clearImage">Clear Image</el-button>
+                <div class="image-container" :style="{ backgroundImage: `url(${imageUrl})` }">
+                    <input type="file" @change="onImageSelected" accept="image/*" round />
+                </div>        
         </div>
         <div class="column right">
-            <!-- <el-dropdown class="buttonleft">
-                <el-button type="primary" round>
-                    Original Language<el-icon class="el-icon--right"><arrow-down /></el-icon>
-                </el-button>
-                <template #dropdown>
-                    <el-dropdown-menu>
-                        <el-dropdown-item v-for="language in languages">{{ language }}</el-dropdown-item> -->
-                        <!-- <el-dropdown-item>Chinese</el-dropdown-item>
-                        <el-dropdown-item>English</el-dropdown-item>
-                        <el-dropdown-item>Spanish</el-dropdown-item>
-                        <el-dropdown-item>French</el-dropdown-item>
-                        <el-dropdown-item>Russian</el-dropdown-item>
-                        <el-dropdown-item>Arabic</el-dropdown-item>
-                        <el-dropdown-item>German</el-dropdown-item>
-                        <el-dropdown-item>Japanese</el-dropdown-item>
-                        <el-dropdown-item>Korean</el-dropdown-item> -->
-                    <!-- </el-dropdown-menu>
-                </template>
-            </el-dropdown> -->
 
-            <el-select v-model="originLanguage" class="m-2" placeholder="Select" size="large">
-                <el-option v-for="item in originLanguageDict" :key="item" :label="item" :value="item" />
+            <el-select v-model="originlanguage" class="m-2" placeholder="Select" size="large">
+                <el-option v-for="item in originlanguageDict" :key="item" :label="item" :value="item" />
             </el-select>
 
             <el-button type="primary" @click="demoHandler" round class="buttoncenter">Translate</el-button>
 
-            <el-dropdown class="buttonright">
-                <el-button type="primary" round>
-                    Mother Language<el-icon class="el-icon--right"><arrow-down /></el-icon>
-                </el-button>
-                <template #dropdown>
-                    <el-dropdown-menu>
-                        <el-dropdown-item v-for="language in languages">{{ language }}</el-dropdown-item>
-                        <!-- <el-dropdown-item>Chinese</el-dropdown-item>
-                        <el-dropdown-item>English</el-dropdown-item>
-                        <el-dropdown-item>Spanish</el-dropdown-item>
-                        <el-dropdown-item>French</el-dropdown-item>
-                        <el-dropdown-item>Russian</el-dropdown-item>
-                        <el-dropdown-item>Arabic</el-dropdown-item>
-                        <el-dropdown-item>German</el-dropdown-item>
-                        <el-dropdown-item>Japanese</el-dropdown-item>
-                        <el-dropdown-item>Korean</el-dropdown-item> -->
-                    </el-dropdown-menu>
-                </template>
-            </el-dropdown>
+            <el-select v-model="targetlanguage" class="m-2" placeholder="Select" size="large">
+                <el-option v-for="item in targetlanguageDict" :key="item" :label="item" :value="item" />
+            </el-select>
+
             <div class="box"></div>
         </div>
     </div>
@@ -93,64 +49,120 @@
     border-radius: 20px;
 }
 
-.buttonleft {}
-
-.buttoncenter {}
-
 .buttonright {
     justify-content: right;
     align-items: right;
 }
+
+.image-container {
+  width: 800px;
+  height: 500px;
+  border: 2px solid lightgreen;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  background-color: white;
+}
+
+.image-container input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-container button {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 </style>
-
-<script lang="ts" setup>
-import { VueElement, ref } from 'vue'
-import { Delete, Download, Plus, ZoomIn } from '@element-plus/icons-vue'
-
-import type { UploadFile } from 'element-plus'
-
-import UploadPicture from './UploadPicture.vue'
-import axios from 'axios'
-import OriginalLanguage from './OriginalLanguage.vue'
-
-const originLanguage = ref('English')
-const originLanguageDict = ['Chinese', 'English', 'Spanish', 'French', 'Russian', 'Arabic', 'German', 'Japanese', 'Korean']
-const demoHandler = () => {
-    const path = 'http://127.0.0.1:8010/api/translateimagetext'
-      axios.get(path)
-        .then(response => {
-          console.log(response)
-        })
-        .catch(error => {
-          console.log(error)
-        })
-}
-
-const dialogImageUrl = ref('')
-const dialogVisible = ref(false)
-const disabled = ref(false)
-
-const handleRemove = (file: UploadFile) => {
-    console.log(file)
-}
-
-const handlePictureCardPreview = (file: UploadFile) => {
-    dialogImageUrl.value = file.url!
-    dialogVisible.value = true
-}
-
-const handleDownload = (file: UploadFile) => {
-    console.log(file)
-}
-
-
-
-const languages = ref(['Chinese', 'English', 'Spanish', 'French', 'Russian', 'Arabic', 'German', 'Japanese', 'Korean'])
-
-
-</script>
-
 
 <script>
 
+import { ref } from 'vue';
+import axios from 'axios';
+
+export default {
+  data() {
+    return {
+      imageUrl: null,
+    };
+  },
+  methods: {
+    onImageSelected(event) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageUrl = reader.result;
+      };
+    },
+    clearImage() {
+      this.imageUrl = null;
+    },
+  },
+  setup() {
+    const originlanguage = ref("English");
+    const originlanguageDict = [
+      "Chinese",
+      "English",
+      "Spanish",
+      "French",
+      "Russian",
+      "Arabic",
+      "German",
+      "Japanese",
+      "Korean",
+    ];
+
+    const changeoriginlanguage = (value) => {
+      originlanguage.value = value;
+    };
+
+    const targetlanguage=ref("Chinese");
+    const targetlanguageDict = [
+      "Chinese",
+      "English",
+      "Spanish",
+      "French",
+      "Russian",
+      "Arabic",
+      "German",
+      "Japanese",
+      "Korean",
+    ];
+
+    const changetargetlanguage =(value)=>{
+        targetlanguage.value=value;
+    }
+
+    const demoHandler = () => {
+      const path = "http://127.0.0.1:8010/api/translateimagetext";
+
+      axios
+        .get(path)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    };    
+
+    return {
+      originlanguage,
+      originlanguageDict,
+      targetlanguage,
+      targetlanguageDict,
+      demoHandler,
+      changeoriginlanguage,
+      changetargetlanguage,
+    };
+  },
+};
 </script>
