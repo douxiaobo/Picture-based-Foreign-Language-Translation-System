@@ -31,90 +31,64 @@ export default {
   data() {
     return {
       imageUrl: null,
-      responseText:"",
+      responseText: "",
+      originlanguage: "English",
+      targetlanguage: "Chinese",
+      originlanguageDict: [
+        "Chinese",
+        "English",
+        "Spanish",
+        "French",
+        "Russian",
+        "Arabic",
+        "German",
+        "Japanese",
+        "Korean",
+      ],
+      targetlanguageDict: [
+        "Chinese",
+        "English",
+        "Spanish",
+        "French",
+        "Russian",
+        "Arabic",
+        "German",
+        "Japanese",
+        "Korean",
+      ],
     };
   },
   methods: {
-    onImageSelected(event) {
+    async onImageSelected(event) {
       const file = event.target.files[0];
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
         this.imageUrl = reader.result;
       };
+
+      const formData = new FormData();
+      formData.append("image", file);
+      formData.append("origin_language", this.originlanguage);
+      formData.append("target_language", this.targetlanguage);
+
+      try {
+        const response = await axios.post("http://127.0.0.1:8000/api/translateimagetext", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        });
+        this.responseText = response.data.target_text;
+      } catch (error) {
+        console.error("Error during translation:", error);
+      }
     },
     clearImage() {
       this.imageUrl = null;
     },
-  },
-  setup() {
-    const originlanguage = ref("English");
-    const originlanguageDict = [
-      "Chinese",
-      "English",
-      "Spanish",
-      "French",
-      "Russian",
-      "Arabic",
-      "German",
-      "Japanese",
-      "Korean",
-    ];
-
-    const changeoriginlanguage = (value) => {
-      originlanguage.value = value;
-    };
-
-    const targetlanguage=ref("Chinese");
-    const targetlanguageDict = [
-      "Chinese",
-      "English",
-      "Spanish",
-      "French",
-      "Russian",
-      "Arabic",
-      "German",
-      "Japanese",
-      "Korean",
-    ];
-
-    const changetargetlanguage =(value)=>{
-        targetlanguage.value=value;
-    }
-
-    const demoHandler = () => {
-      const path = "http://127.0.0.1:8000/api/translateimagetext";
-      const formData=new FormData();
-      formData.append('image',this.imageUrl);
-      formData.append('target_language',this.$refs.targetlanguage.value);
-      formData.append('origin_language',this.$refs.originlanguage.value);
-
-      axios
-        .get(path)
-        .post(path,formData,{
-          headers:{
-            'Content-Type':'multipart/form-data'
-          }
-        })
-        .then((response) => {
-          console.log(response);
-          this.responseText=response.data.message;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };    
-    
-
-    return {
-      originlanguage,
-      originlanguageDict,
-      targetlanguage,
-      targetlanguageDict,
-      demoHandler,
-      changeoriginlanguage,
-      changetargetlanguage,
-    };
+    demoHandler() {
+      // Translate button handler
+    },
   },
 };
 </script>

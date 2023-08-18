@@ -5,6 +5,7 @@ import Language from './components/Language.Vue'
 import MotherLanguage from './components/MotherLanguage.vue'
 import Tabs from './components/Tabs.vue'
 import Main from './components/Main.vue'
+import Main1 from './components/Main1.vue'
 </script>
 
 <template>
@@ -14,7 +15,8 @@ import Main from './components/Main.vue'
         </div>
         <hr />
         <main class="common-layout">
-            <Main />
+            <!-- <Main /> -->
+            <Main1 />
             <!-- <h2>Upload File:</h2>
             <div>
                 <UploadFile />
