@@ -1,24 +1,40 @@
-<template>
+<template>  
     <div class="container">
-        <div class="column left">
-            <el-button type="primary" round v-if="imageUrl" @click="clearImage">Clear Image</el-button>
-                <div class="image-container" :style="{ backgroundImage: `url(${imageUrl})` }">
-                    <input type="file" @change="onImageSelected" accept="image/*" round />
-                </div>        
+        <div class="column left"> 
+          <div class="image-container" :style="{ backgroundImage: `url(${imageUrl})` }">
+            <input type="file" @change="onImageSelected" accept="image/*" round />
+          </div>   
+          <div>
+          <el-row class="row-bg" justify="center" >
+              <el-col :span="6"><div class="grid-content ep-bg-purple" />
+                <el-button type="primary" round v-if="imageUrl" @click="clearImage" size="large">Clear Image</el-button>
+              </el-col>
+            </el-row>          
+          </div>           
         </div>
-        <div class="column right">
+        <div class="column right">  
+          <div class="box">{{ responseText }}</div>
+          
+          <el-row class="row-bg" justify="space-evenly">
 
-            <el-select v-model="originlanguage" class="m-2" placeholder="Select" size="large">
+            <el-col :span="6"><div class="grid-content ep-bg-purple" />
+              <el-select v-model="originlanguage" class="m-2" placeholder="Select" size="large">
                 <el-option v-for="item in originlanguageDict" :key="item" :label="item" :value="item" />
-            </el-select>
+              </el-select>
+            </el-col>
 
-            <el-button type="primary" @click="demoHandler" round class="buttoncenter">Translate</el-button>
+            <el-col :span="6"><div class="grid-content ep-bg-purple-light" />
+              <el-button type="primary" @click="demoHandler" round class="buttoncenter" size="large">Translate</el-button>
+            </el-col>
 
-            <el-select v-model="targetlanguage" class="m-2" placeholder="Select" size="large">
+            <el-col :span="6"><div class="grid-content ep-bg-purple" />
+              <el-select v-model="targetlanguage" class="m-2" placeholder="Select" size="large">
                 <el-option v-for="item in targetlanguageDict" :key="item" :label="item" :value="item" />
-            </el-select>
+              </el-select>
+            </el-col>
 
-            <div class="box">{{ responseText }}</div>
+          </el-row>
+            
         </div>
     </div>
 </template>
@@ -45,6 +61,27 @@ export default {
     },
     clearImage() {
       this.imageUrl = null;
+    },
+    demoHandler(){
+      const path = "http://127.0.0.1:8000/api/translateimagetext";
+      const formData=new FormData();
+      formData.append('image',this.imageUrl);
+      formData.append('target_language',this.targetlanguage);
+      formData.append('origin_language',this.originlanguage);
+
+      axios
+        .post(path,formData,{
+          headers:{
+            'Content-Type':'multipart/form-data'
+          }
+        })
+        .then((response) => {
+          console.log(response);
+          this.responseText=response.data.target_text;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
   },
   setup() {
@@ -80,30 +117,7 @@ export default {
 
     const changetargetlanguage =(value)=>{
         targetlanguage.value=value;
-    }
-
-    const demoHandler = () => {
-      const path = "http://127.0.0.1:8000/api/translateimagetext";
-      const formData=new FormData();
-      formData.append('image',this.imageUrl);
-      formData.append('target_language',this.$refs.targetlanguage.value);
-      formData.append('origin_language',this.$refs.originlanguage.value);
-
-      axios
-        .get(path)
-        .post(path,formData,{
-          headers:{
-            'Content-Type':'multipart/form-data'
-          }
-        })
-        .then((response) => {
-          console.log(response);
-          this.responseText=response.data.message;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    };    
+    }   
     
 
     return {
@@ -111,7 +125,6 @@ export default {
       originlanguageDict,
       targetlanguage,
       targetlanguageDict,
-      demoHandler,
       changeoriginlanguage,
       changetargetlanguage,
     };
@@ -175,6 +188,21 @@ export default {
   bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.el-row {
+  margin-bottom: 20px;
+}
+.el-row:last-child {
+  margin-bottom: 0;
+}
+.el-col {
+  border-radius: 4px;
+}
+
+.grid-content {
+  border-radius: 4px;
+  min-height: 36px;
 }
 </style>
 
