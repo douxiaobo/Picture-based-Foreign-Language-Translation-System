@@ -12,7 +12,7 @@
                 </el-upload>
                 <input v-if="!imageUrl" type="file" @change="onImageSelected" accept="image/*" round />
                 <!-- <el-dialog v-else v-model="dialogVisible"> -->
-                    <el-image v-else fit="cover" :src="imageUrl" />
+                    <el-image v-else fit="fill" :src="imageUrl" lazy />
                 <!-- </el-dialog> -->
                 
             </div> 
@@ -108,8 +108,15 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         });
-        this.responseText = response.data.target_text;
+        if(response.error){
+          alert(response.error)
+          this.responseText=response.error;
+        } else {
+          this.responseText = response.data.target_text;
+        }        
       } catch (error) {
+        alert.log(response);
+        this.responseText=response.error;
         console.error("Error during translation:", error);
       }
     },
@@ -131,8 +138,13 @@ export default {
           }
         })
         .then((response) => {
-          console.log(response);
-          this.responseText=response.data.target_text;
+          if(response.error){
+            alert(data.error);
+          } else {
+            console.log(response);
+            this.responseText=response.data.target_text;
+          }
+          
         })
         .catch((error) => {
           console.log(error);

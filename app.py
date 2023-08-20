@@ -1,15 +1,13 @@
 from flask import Flask, jsonify, render_template, request
 import pytesseract
 from PIL import Image
-import pytesseract
-from googletrans import Translator
+from googletrans import Translator #, exceptions
 from flask_cors import CORS
 from gevent import monkey
 from gevent.pywsgi import WSGIServer
 from multiprocessing import Process, cpu_count
 import traceback
 import os
-
 
 
 monkey.patch_all(ssl=False)
@@ -38,49 +36,60 @@ def upload():
         target_language = request.form.get('target_language')
 
 
-        origin_language_map = {
-        'Chinese': 'chi_sim',
-        'English': 'eng',
-        'Spanish': 'spa',
-        'French': 'fra',
-        'Russian': 'rus',
-        'Arabic': 'ara',
-        'German': 'deu',
-        'Japanese': 'jpn',
-        'Korean': 'kor'
-        }
+        try:
+
+            # origin_text = pytesseract.image_to_string(Image.open('image.png'),lang='chi_sim') 
+            if origin_language is None or origin_language == '':
+                origin_text = pytesseract.image_to_string(Image.open('image.png'))
+            else: 
+
+                origin_language_map = {
+                'Chinese': 'chi_sim',
+                'English': 'eng',
+                'Spanish': 'spa',
+                'French': 'fra',
+                'Russian': 'rus',
+                'Arabic': 'ara',
+                'German': 'deu',
+                'Japanese': 'jpn',
+                'Korean': 'kor'
+                }      
+                origin_language_code = origin_language_map.get(origin_language)
+
+                origin_text = pytesseract.image_to_string(Image.open('image.png'),lang=origin_language_code)
+        except pytesseract.pytesseract.TesseractError as e:
+            return jsonify({'error_pytesseract': str(e)})
+
+        try:
+            translator = Translator()
+
+            if target_language is None or origin_language == '':
+                target_text = translator.translate(origin_text,dest='zh_CN')
+            else:
+
+                target_language_map = {
+                'Chinese': 'zh-CN',
+                'English': 'en',
+                'Spanish': 'es',
+                'French': 'fr',
+                'Russian': 'ru',
+                'Arabic': 'ar',
+                'German': 'de',
+                'Japanese': 'ja',
+                'Korean': 'ko'
+                }
+                target_language_code = target_language_map.get(target_language)
+
+            target_text = translator.translate(origin_text,dest=target_language_code)
+
+            # return render_template('translateimagetext.html', text = origin_text, result=target_text.text)
+            return jsonify({'origin_language':origin_language, 'origin_text':origin_text, 'target_language':target_language, 'target_text':target_text.text})
         
-        origin_language_code = origin_language_map.get(origin_language)
-
-        target_language_map = {
-        'Chinese': 'zh-CN',
-        'English': 'en',
-        'Spanish': 'es',
-        'French': 'fr',
-        'Russian': 'ru',
-        'Arabic': 'ar',
-        'German': 'de',
-        'Japanese': 'ja',
-        'Korean': 'ko'
-        }
-        target_language_code = target_language_map.get(target_language)
+        except Translator.TranslatorError as e:
+            return jsonify({'error_translator': str(e)})
 
 
-        # origin_text = pytesseract.image_to_string(Image.open('image.png'),lang='chi_sim') 
-        if origin_language is None or origin_language == '':
-            origin_text = pytesseract.image_to_string(Image.open('image.png'))
-        else: 
-            origin_text = pytesseract.image_to_string(Image.open('image.png'),lang=origin_language_code)
 
-
-        translator = Translator()
-
-        # target_text = translator.translate(origin_text,dest='en')
-        target_text = translator.translate(origin_text,dest=target_language_code)
-
-
-        # return render_template('translateimagetext.html', text = origin_text, result=target_text.text)
-        return jsonify({'origin_language':origin_language, 'origin_text':origin_text, 'target_language':target_language, 'target_text':target_text.text})
     except Exception as e:
 
         print(traceback.format_exc())
