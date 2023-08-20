@@ -90,19 +90,53 @@ export default {
     };
   },
   methods: {
-    async onImageSelected(event) {
-      const file = event.target.files[0];
+    onImageSelected(event) {
+      this.file = event.target.files[0];
       const reader = new FileReader();
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(this.file);
       reader.onload = () => {
         this.imageUrl = reader.result;
       };
 
-      const formData = new FormData();
-      formData.append("image", file);
+      // const formData = new FormData();
+      // formData.append("image", this.file);
+      // formData.append("origin_language", this.originlanguage);
+      // formData.append("target_language", this.targetlanguage);
+
+      // try {
+      //   const response = await axios.post("http://127.0.0.1:8000/api/translateimagetext", formData, {
+      //     headers: {
+      //       "Content-Type": "multipart/form-data",
+      //     },
+      //   });
+      //   this.responseText = response.data.target_text;
+      //   if(response.data.error_pytesseract){
+      //     alert(response.data.error_pytesseract)
+      //     this.responseText=response.data.error_pytesseract;
+      //   } else if(response.data.error_translator){
+      //     alert(response.data.error_translator)
+      //     this.responseText=response.data.error_pytesseract;
+      //   }else {
+          
+      //   }        
+      // } catch (error) {
+      //   alert.log(response);
+      //   this.responseText+=response.data.error_pytesseract;
+      //   this.responseText+=response.data.error_translator;
+      //   console.error("Error during translation:", this.responseText);
+      // }
+    },
+    clearImage() {
+      this.imageUrl = null;
+      this.responseText="";
+    },
+    async demoHandler() {
+      // Translate button handler
+      this.responseText="";
+      const formData =new FormData;
+      formData.append("image",this.file);
       formData.append("origin_language", this.originlanguage);
       formData.append("target_language", this.targetlanguage);
-
       try {
         const response = await axios.post("http://127.0.0.1:8000/api/translateimagetext", formData, {
           headers: {
@@ -110,6 +144,7 @@ export default {
           },
         });
         this.responseText = response.data.target_text;
+        // this.responseText = "123";
         if(response.data.error_pytesseract){
           alert(response.data.error_pytesseract)
           this.responseText=response.data.error_pytesseract;
@@ -120,41 +155,10 @@ export default {
           
         }        
       } catch (error) {
-        alert.log(response);
         this.responseText+=response.data.error_pytesseract;
         this.responseText+=response.data.error_translator;
         console.error("Error during translation:", this.responseText);
       }
-    },
-    clearImage() {
-      this.imageUrl = null;
-      this.responseText="";
-    },
-    demoHandler() {
-      // Translate button handler
-      this.responseText="";
-      const formData =new FormData;
-      formData.append("image",file);
-      formData.append("origin_language", this.originlanguage);
-      formData.append("target_language", this.targetlanguage);
-      axios
-        .post("http://127.0.0.1:8000/api/translateimagetext",formData,{
-          headers:{
-            'Content-Type':'multipart/form-data'
-          }
-        })
-        .then((response) => {
-          if(response.error){
-            alert(data.error);
-          } else {
-            console.log(response);
-            this.responseText=response.data.target_text;
-          }
-          
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     },
   },
 };
