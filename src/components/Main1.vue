@@ -64,6 +64,7 @@ export default {
       responseText: "",
       originlanguage: "English",
       targetlanguage: "Chinese",
+      file:null,
       originlanguageDict: [
         "Chinese",
         "English",
@@ -108,16 +109,21 @@ export default {
             "Content-Type": "multipart/form-data",
           },
         });
-        if(response.error){
-          alert(response.error)
-          this.responseText=response.error;
-        } else {
-          this.responseText = response.data.target_text;
+        this.responseText = response.data.target_text;
+        if(response.data.error_pytesseract){
+          alert(response.data.error_pytesseract)
+          this.responseText=response.data.error_pytesseract;
+        } else if(response.data.error_translator){
+          alert(response.data.error_translator)
+          this.responseText=response.data.error_pytesseract;
+        }else {
+          
         }        
       } catch (error) {
         alert.log(response);
-        this.responseText=response.error;
-        console.error("Error during translation:", error);
+        this.responseText+=response.data.error_pytesseract;
+        this.responseText+=response.data.error_translator;
+        console.error("Error during translation:", this.responseText);
       }
     },
     clearImage() {
